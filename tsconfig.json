@@ -8,9 +8,13 @@
     "removeComments": true,
     "sourceMap": true,
     "target": "ES2020",
-    "outDir": "lib"
+    "outDir": "lib",
+    "inlineSources": true,
+    "esModuleInterop": true,
+    "sourceRoot": "/",
+    "rootDir": "./src"
   },
-  "include": ["src/**/*.ts", "serverless.ts", "src/functions/hello.ts"],
+  "include": ["./**/*.ts", "src/**/*.ts", "serverless.ts", "src/functions/generateCertificate.ts"],
   "exclude": [
     "node_modules/**/*",
     ".serverless/**/*",

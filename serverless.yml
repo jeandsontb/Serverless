@@ -3,6 +3,7 @@ service: certificate
 plugins:
   - serverless-esbuild
   - serverless-offline
+  - serverless-dynamodb-local
 
 provider:
   name: aws
@@ -15,12 +16,36 @@ custom:
     bundle: true
     minify: false
     sourcemap: true
+  dynamodb:
+    stages:
+      - dev
+      - local
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
 
 functions:
-  hello:
-    handler: src/functions/hello.handle
+  generateCertificate:
+    handler: src/functions/generateCertificate.handle
     events:
       - http:
-          path: /hello
-          method: GET
+          path: /generateCertificate
+          method: POST
           cors: true
+
+resources:
+  Resources:
+    dbCertificateUsers:
+      Type: 'AWS::DynamoDB::Table'      
+      Properties:
+        TableName: users_certificates
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
