@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "serverless offline",
     "deploy": "sls deploy -v",
-    "invoke": "sls invoke local --function generateCertificate",
+    "invoke": "sls invoke local --function verifyCertificate",
     "dynamo:install": "sls dynamodb install",
     "dynamo:start": "sls dynamodb start"
   },
