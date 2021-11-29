@@ -1,3 +1,4 @@
+import { APIGatewayProxyHandler } from "aws-lambda";
 import chromium from "chrome-aws-lambda";
 import path from "path";
 import handlebars from "handlebars";
@@ -34,7 +35,7 @@ const compile = async function (data: ITemplate) {
   return handlebars.compile(html)(data);
 };
 
-export const handle = async (event) => {
+export const handle: APIGatewayProxyHandler = async (event) => {
   // id, name, grade =
   const { id, name, grade } = JSON.parse(event.body) as ICreateCertificate;
 
